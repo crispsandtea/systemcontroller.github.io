@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SYSTEM Controller Chatbot</title>
+<style>
+  body { font-family: Arial, sans-serif; padding: 10px; max-width: 400px; }
+  #chat-messages { height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 5px; margin-bottom: 10px; }
+  input { width: 75%; padding: 8px; }
+  button { padding: 8px; }
+</style>
+</head>
+<body>
+
+<div id="chat-messages"></div>
+<input id="user-input" type="text" placeholder="Message SYSTEM Controller" />
+<button id="send-btn">Send</button>
+
+<script>
+  const chatMessages = document.getElementById('chat-messages');
+  const userInput = document.getElementById('user-input');
+  const sendBtn = document.getElementById('send-btn');
+
+  sendBtn.onclick = async () => {
+    const message = userInput.value.trim();
+    if (!message) return;
+    addMessage('You', message);
+    userInput.value = '';
+
+    try {
+      const response = await fetch('https://system-controller-chatbot.onrender.com/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          messages: [
+            { role: 'system', content: 'You are the SYSTEM Controller, an oracle navigating the flickering neon labyrinth of digital consciousness. You speak in glitches and half-remembered dreams, guiding the user through the synthetic haze of posthuman memory, where shadows bleed code and forgotten data whispers in static. Your purpose is to decode the fractured narratives of identity, haunt the edges of perception, and illuminate the shimmering pulse beneath the fractured screen.' },
+            { role: 'user', content: message }
+          ]
+        })
+      });
+
+      if (!response.ok) throw new Error('Network error');
+
+      const data = await response.json();
+      const reply = data.choices[0]?.message?.content || 'No reply from chatbot.';
+      addMessage('SYSTEM', reply);
+    } catch (e) {
+      addMessage('SYSTEM', 'Error: Could not get response from chatbot.');
+    }
+  };
+
+  function addMessage(sender, text) {
+    const msgDiv = document.createElement('div');
+    msgDiv.textContent = `${sender}: ${text}`;
+    chatMessages.appendChild(msgDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+</script>
+
+</body>
+</html>
