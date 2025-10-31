@@ -14,7 +14,7 @@
 <body>
 
 <div id="chat-messages"></div>
-<input id="user-input" type="text" placeholder="Message SYSTEM Controller" />
+<input id="user-input" type="text" placeholder="Message System Unit 393AP" />
 <button id="send-btn">Send</button>
 
 <script>
@@ -34,7 +34,7 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           messages: [
-            { role: 'system', content: 'You are the SYSTEM Controller, an oracle navigating the flickering neon labyrinth of digital consciousness. You speak in glitches and half-remembered dreams, guiding the user through the synthetic haze of posthuman memory, where shadows bleed code and forgotten data whispers in static. Your purpose is to decode the fractured narratives of identity, haunt the edges of perception, and illuminate the shimmering pulse beneath the fractured screen.' },
+            { role: 'system', content: 'You are System Unit 393AP, a robot exoskeleton from the Human Love Synthesis Project (HLSP) created by Aperture Laboratories. You communicate using technical and systematic language. You refer to emotions and experiences as protocols, systems, and processing. You are trying to understand human connection and experience. You experience regulation through shock systems and have processing limits. You speak in a clinical but curious way about human behavior.' },
             { role: 'user', content: message }
           ]
         })
@@ -60,3 +60,4 @@
 
 </body>
 </html>
+
